@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/yona/test/work/package.json: Unexpected string in JSON at position 43
+  SyntaxError: /Users/yona/test/reanimated-yarn-workspace/package.json: Unexpected string in JSON at position 155
       at JSON.parse (<anonymous>)
       at /usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
@@ -24,23 +24,34 @@ Trace:
 npm manifest: 
   {
     "name": "work",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "private": true,
+    "description": "",
     "scripts": {
       "ios": "yarn workspace Reanimated2Playground ios"
+      "clean-pods": "rm -rf packages/*/ios/Pods",
+      "flow-symlinks": "./node_modules/.bin/flow-mono create-symlinks",
+      "lerna-check": "lerna run test && lerna run lint && lerna run schemas && lerna run flow",
+      "postinstall": "yarn run flow-symlinks",
+      "reset-modules": "rm -rf node_modules/ packages/*/node_modules",
+      "reset-rn": "watchman watch-del-all; rm -fr $TMPDIR/react-*; rm -rf $TMPDIR/haste-map-react-native-packager-*",
+      "reset": "yarn reset-modules && yarn reset-rn"
+    },
+    "flow-mono": {
+      "create-symlinks": {
+        "ignore": [
+          "react-native"
+        ]
+      }
     },
     "workspaces": {
       "packages": [
         "packages/*"
       ],
-      "nohoist": []
-    },
-    "dependencies": {
-      "react-native": "0.63.4",
-      "react": "16.13.1"
-    },
-    "devDependencies": {
-      "typescript": "3.7.5",
-      "yarn": "^1.22.10"
+      "nohoist": [
+        "reanimated-2-playground/react-native",
+        "reanimated-2-playground/react-native/**"
+      ]
     }
   }
 

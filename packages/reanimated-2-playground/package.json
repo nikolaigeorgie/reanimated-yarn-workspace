@@ -10,6 +10,13 @@
     "lint": "eslint .",
     "web": "expo start --web || expo start --web --web-only"
   },
+  "workspaces": {
+    "nohoist": [
+      "react-native-gesture-handler",
+      "react-native-reanimated",
+      "react-native"
+      ]
+  },
   "dependencies": {
     "expo-asset": "^8.2.0",
     "path": "^0.12.7",
@@ -28,7 +35,8 @@
     "eslint": "^7.5.0",
     "jest": "^26.1.0",
     "metro-react-native-babel-preset": "0.58.0",
-    "react-test-renderer": "16.13.1"
+    "react-test-renderer": "16.13.1",
+    "flow-bin": "0.92.1"
   },
   "jest": {
     "preset": "react-native"
